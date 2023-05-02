@@ -1,0 +1,25 @@
+.bank_title, .account_form, .main_form{
+    background-color: gold;
+    color: black;
+    border-color: darkgoldenrod;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.bank_title {
+    font-size: 80px;
+    text-align: center;
+}
+.account_form {
+    width: 300px;
+    float: right;
+    font-size: 20px;
+}
+.main_form {
+    width: calc(100% - 400px);
+    float: left;
+    font-size: 20px;
+}
