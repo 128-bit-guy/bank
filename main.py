@@ -18,12 +18,12 @@ def handle_account():
                         session["login"] = login
                         return None
                     else:
-                        return "Invalid password!"
+                        return render_template("error.html", error="Неправильный пароль")
                 else:
-                    return "User does not exist!"
+                    return render_template("error.html", error="Пользователя с таким именем не существует")
             else:
                 if login in accounts:
-                    return "User already exists!"
+                    return render_template("error.html", error="Пользователь с таким именем уже существует")
                 else:
                     accounts[login] = Account(login, password, 0)
                     session["login"] = login
