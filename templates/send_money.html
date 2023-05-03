@@ -31,13 +31,11 @@
     {% endif %}
 </div>
 <div class="main_form">
-    <div style="text-align: center;font-size: 30px">Учётная запись</div>
-    <div style="text-align: center;font-size: 25px">Средства на счёте:</div>
-    <div style="text-align: center;font-size: 25px">{{ balance }}</div>
-    <div style="text-align: center;font-size: 25px">Изменение пароля:</div>
-    <form method="post" >
-        <div>Новый пароль: <label><input type="text" name="password" size="25"></label></div>
-         <label><input type="submit" name="change_password" value="Изменить пароль"></label>
+    <div style="text-align: center;font-size: 30px">Отправить деньги</div>
+    <form method="post">
+        <div>Пользователь: <label><input type="text" name="user" size="25"></label></div>
+        <div>Количество денег: <label><input type="text" name="money_count" size="25"></label></div>
+         <label><input type="submit" name="send_money" value="Отправить деньги"></label>
     </form>
 </div>
 </body>
