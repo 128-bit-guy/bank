@@ -6,6 +6,8 @@ app.secret_key = "admin"
 
 
 def handle_account():
+    if 'login' in session and session['login'] in accounts:
+        accounts[session['login']].update_debt()
     if 'login' in session and not session['login'] in accounts:
         del session["login"]
     if request.method == 'POST':
@@ -81,6 +83,31 @@ def draw_send_money():
             if not accounts[session["login"]].send_money(money_count, accounts[user]):
                 return render_template("error.html", error="Недостаточно средств")
         return render_template("send_money.html", logged_in=True, login=session["login"])
+    else:
+        return render_template("error.html", error="Для того чтобы пользоваться этой страницой необходимо войти в "
+                                                   "учётную запись")
+
+
+@app.route("/loan", methods=['GET', 'POST'])
+def draw_loan():
+    x = handle_account()
+    if x is not None:
+        return x
+    elif "login" in session:
+        account: Account = accounts[session["login"]]
+        if 'take_loan' in request.form:
+            debt = request.form['debt']
+            if not debt.isnumeric():
+                return render_template("error.html", error="Размер кредита должен быть числом")
+            debt = int(debt)
+            payment_size = request.form['payment_size']
+            if not payment_size.isnumeric():
+                return render_template("error.html", error="Размер выплат должен быть числом")
+            payment_size = int(payment_size)
+            if not account.take_loan(debt, payment_size):
+                return render_template("error.html", error="Размер выплат должен быть больше")
+        return render_template("loan.html", logged_in=True, login=session["login"], debt=account.debt,
+                               payment_size=account.debt_payment_size)
     else:
         return render_template("error.html", error="Для того чтобы пользоваться этой страницой необходимо войти в "
                                                    "учётную запись")

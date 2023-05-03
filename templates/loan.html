@@ -32,13 +32,16 @@
     {% endif %}
 </div>
 <div class="main_form">
-    <div style="text-align: center;font-size: 30px">Учётная запись</div>
-    <div style="text-align: center;font-size: 25px">Средства на счёте:</div>
-    <div style="text-align: center;font-size: 25px">{{ balance }}</div>
-    <div style="text-align: center;font-size: 25px">Изменение пароля:</div>
-    <form method="post" >
-        <div>Новый пароль: <label><input type="text" name="password" size="25"></label></div>
-         <label><input type="submit" name="change_password" value="Изменить пароль"></label>
-    </form>
+    <div style="text-align: center;font-size: 30px">Кредит</div>
+    {% if debt > 0 %}
+    <div>Задолженность: {{ debt }}</div>
+    <div>Размер выплат: {{ payment_size }}</div>
+    {% else %}
+        <form method="post" >
+            <div>Размер кредита: <label><input type="text" name="debt" size="25"></label></div>
+            <div>Размер выплат (каждые 5 минут): <label><input type="text" name="payment_size" size="25"></label></div>
+             <label><input type="submit" name="take_loan" value="Взять кредит"></label>
+        </form>
+    {% endif %}
 </div>
 </body>
