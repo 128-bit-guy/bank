@@ -1,4 +1,4 @@
-.bank_title, .account_form, .main_form{
+.bank_title, .side_form, .main_form{
     background-color: gold;
     color: black;
     border-color: darkgoldenrod;
@@ -13,9 +13,11 @@
     font-size: 80px;
     text-align: center;
 }
-.account_form {
-    width: 300px;
+.side_objects {
     float: right;
+}
+.side_form {
+    width: 300px;
     font-size: 20px;
 }
 .main_form {

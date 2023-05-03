@@ -5,20 +5,28 @@
 
 <body>
 <div class="bank_title">Банк</div>
-<div class="account_form">
-    <div style="text-align: center;font-size: 30px">Учётная запись</div>
+<div class="side_objects">
+    <div class="side_form">
+        <div style="text-align: center;font-size: 30px">Учётная запись</div>
+        {% if logged_in%}
+        Имя: <div style="float: right">{{ login }}</div>
+        <form method="post" >
+             <label><input type="submit" name="log_out" value="Выйти"></label>
+        </form>
+        {% else %}
+        <form method="post" >
+            <div>Имя: <label><input type="text" name="login" size="25" style="float: right"></label></div>
+            <div>Пароль: <label><input type="text" name="password" size="25"  style="float: right"></label></div>
+             <label><input type="submit" name="log_in" value="Войти"></label>
+             <label><input type="submit" name="register" value="Зарегистрироваться"></label>
+        </form>
+        {% endif %}
+    </div>
     {% if logged_in%}
-    Имя: <div style="float: right">{{ login }}</div>
-    <form method="post" >
-         <label><input type="submit" name="log_out" value="Выйти"></label>
-    </form>
-    {% else %}
-    <form method="post" >
-        <div>Имя: <label><input type="text" name="login" size="25" style="float: right"></label></div>
-        <div>Пароль: <label><input type="text" name="password" size="25"  style="float: right"></label></div>
-         <label><input type="submit" name="log_in" value="Войти"></label>
-         <label><input type="submit" name="register" value="Зарегистрироваться"></label>
-    </form>
+    <div class="side_form">
+        <div><a href="/">Информация о банке</a></div>
+        <div><a href="/account">Учётная запись</a></div>
+    </div>
     {% endif %}
 </div>
 <div class="main_form">
