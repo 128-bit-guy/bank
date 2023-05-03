@@ -11,25 +11,26 @@ def handle_account():
         if 'log_out' in request.form:
             del session["login"]
             return None
-        else:
+        elif 'log_in' in request.form:
             login = request.form['login']
             password = request.form['password']
-            if 'log_in' in request.form:
-                if login in accounts:
-                    if password == accounts[login].password:
-                        session["login"] = login
-                        return None
-                    else:
-                        return render_template("error.html", error="Неправильный пароль")
-                else:
-                    return render_template("error.html", error="Пользователя с таким именем не существует")
-            else:
-                if login in accounts:
-                    return render_template("error.html", error="Пользователь с таким именем уже существует")
-                else:
-                    accounts[login] = Account(login, password, 0)
+            if login in accounts:
+                if password == accounts[login].password:
                     session["login"] = login
                     return None
+                else:
+                    return render_template("error.html", error="Неправильный пароль")
+            else:
+                return render_template("error.html", error="Пользователя с таким именем не существует")
+        elif 'register' in request.form:
+            login = request.form['login']
+            password = request.form['password']
+            if login in accounts:
+                return render_template("error.html", error="Пользователь с таким именем уже существует")
+            else:
+                accounts[login] = Account(login, password, 0)
+                session["login"] = login
+                return None
     return None
 
 
@@ -50,6 +51,8 @@ def draw_account():
     if x is not None:
         return x
     elif "login" in session:
+        if 'change_password' in request.form:
+            accounts[session["login"]].password = request.form['password']
         return render_template("account.html", logged_in=True, login=session["login"],
                                balance=accounts[session["login"]].balance)
     else:
